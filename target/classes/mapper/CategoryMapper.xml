@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="qf.game.dao.mapper.CategoryMapper">
+
+    <resultMap id="categoryMap" type="qf.game.dao.entity.Category" >
+        <id column="c_id" property="id" javaType="Long" jdbcType="BIGINT" />
+        <result column="c_name" property="name" javaType="String" jdbcType="VARCHAR" />
+        <result column="c_create_time" property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+        <result column="c_create_by" property="createBy" javaType="Long" jdbcType="BIGINT" />
+    </resultMap>
+
+    <sql id="base_query">
+        SELECT
+        c.id AS c_id,
+        c.name AS c_name,
+        c.create_time AS c_create_time,
+        c.create_by AS c_create_by
+        FROM category_info c
+        WHERE c.is_deleted = false
+    </sql>
+
+    <select id="findAll" resultMap="categoryMap">
+        <include refid="base_query"/>
+    </select>
+
+    <select id="findById" resultMap="categoryMap">
+        <include refid="base_query"/>
+        AND c.id = #{id}
+    </select>
+
+    <insert id="create" parameterType="qf.game.dao.entity.Category" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO category_info(name, create_time, create_by) values(#{name},#{createTime},#{createBy})
+    </insert>
+
+    <update id="delete" parameterType="Long" >
+        UPDATE
+        category_info
+        SET
+        is_deleted = true
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="update" parameterType="qf.game.dao.entity.Category" >
+        UPDATE
+        category_info c
+        SET
+        c.name = #{name}
+        WHERE
+        c.id = #{id}
+    </update>
+
+</mapper>
