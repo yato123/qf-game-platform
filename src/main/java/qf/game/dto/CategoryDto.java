@@ -1,7 +1,5 @@
 package qf.game.dto;
 
-import qf.game.dao.entity.Game;
-
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
