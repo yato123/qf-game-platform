@@ -1,0 +1,5 @@
+CREATE TABLE `link_category_game` (
+  `game_info_id` int(11) NOT NULL,
+  `category_info_id` int(11) NOT NULL,
+  PRIMARY KEY (`game_info_id`,`category_info_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
